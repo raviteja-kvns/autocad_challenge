@@ -9,7 +9,7 @@ class BaseConverter:
 
         self.to_types = to_types
 
-    def _is_type_supported(self, file_type):
+    def is_type_supported(self, file_type):
 
         return file_type in self.to_types
 
@@ -23,5 +23,5 @@ class BaseConverter:
 
         raise NotImplementedError
 
-    def convert(self, file_obj):
+    def convert(self, csv_file_obj, selected_to_type):
         raise NotImplementedError
