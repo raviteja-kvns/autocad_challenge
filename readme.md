@@ -22,7 +22,7 @@ However, I was running into issues as it was only available for windows and I co
 * Converters: Has all the file converters from csv to other formats, eg. AutoCADConverter and RevitConverter
 * utils: Contans commonly used stateless functions
 * config.py: Configurations like invocation flags to libraries, paths of results, data etc. are set up here. A common place from which the whole app reads and implements accordingly
-*s main.py: parses the input arguments, loads input file and invokes appropriate file converter and saves the result 
+* main.py: parses the input arguments, loads input file and invokes appropriate file converter and saves the result 
  data: Home to input data. 
 * results: Results will be placed in it
 
@@ -33,7 +33,7 @@ Following are the libraries considered for AutoCAD drawings .dxf, .dwg:
 * ezdxf - Probably a good one. Has recent release history, and active work is being done. But the version number is < 1. So wouldn't prefer it for production unless absolutely necessary
 * dxf_fix - seems like built on top of ezdxf 
 * dxf - Again, an old one
-*s Fiona - looks promising but not specialized towards Autocad
+* Fiona - looks promising but not specialized towards Autocad
 
 Following are the libraries considered for Revit Files - 
 * rjm 1.4.0 - Need dynamo
