@@ -13,8 +13,11 @@ However, I was running into issues as it was only available for windows and I co
 
 # Environment Setup
 * Install pip package ezdxf @ https://pypi.org/project/ezdxf/
-* If using mac, if library throws error, change the program_path and tmp paths to /Applications/ODAFIleConverter and /tmp respectively
+* If using mac, the library ezdxf probably throws error. To avoid error, set the exec_path = "/Applications/ODAFileConverter.app" and temp_path = "/tmp"
 * Install ODAFileConverter - shttps://www.opendesign.com/guestfiles/oda_file_converter
+
+# Running the code
+* python main.py -f './data/csv/sample_blueprint.csv' -cs autocad -cf dxf
 
 # Project Structure: 
 * Converters: Has all the file converters from csv to other formats, eg. AutoCADConverter and RevitConverter
