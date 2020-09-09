@@ -39,8 +39,3 @@ class AutoCADConverter(BaseConverter):
             doc.saveas(save_file_as + ".dxf")
         elif selected_to_type == 'dwg':
             odafc.export_dwg(doc, save_file_as + '.dwg', version='R2018')
-
-    # def _build_standardized_representation(self, csv_file_obj):
-    #
-    #     # a_cad = Autocad()
-    #     pass

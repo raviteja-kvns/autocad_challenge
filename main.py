@@ -6,6 +6,11 @@ import pandas as pd
 
 def parse_input_arguments():
 
+    """
+    Fn to parse input arguments
+    :return: arguments object
+    """
+
     parser = argparse.ArgumentParser(description='drawing creator')
     parser.add_argument('-f', '--file_path', default='./data/csv/sample_blueprint.csv', help='file path of csv file')
     parser.add_argument('-cs', '--convert_to_software', default='autocad', help="The software to be covnerted into. Supported softwares:autocad, revit")
@@ -14,6 +19,12 @@ def parse_input_arguments():
     return parser.parse_args()
 
 def convert_selected_file(preferences):
+
+    """
+        Picks appropriate convertere as chosen in preferences
+    :param preferences: preferences inputted by the user
+    :return:
+    """
 
     converter_instance = None
 

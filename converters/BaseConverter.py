@@ -13,15 +13,5 @@ class BaseConverter:
 
         return file_type in self.to_types
 
-    def _build_standardized_representation(self):
-
-        """
-            Builds standardized representation from CSV or the file inputted
-            to be used as input to library
-        :return: representation
-        """
-
-        raise NotImplementedError
-
     def convert(self, csv_file_obj, selected_to_type):
         raise NotImplementedError
