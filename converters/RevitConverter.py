@@ -1,4 +1,4 @@
-from converter.BaseConverter import BaseConverter
+from converters.BaseConverter import BaseConverter
 
 class RevitConverter(BaseConverter):
 
@@ -8,4 +8,4 @@ class RevitConverter(BaseConverter):
 
     def __init__(self):
 
-        super(RevitConverter).__init__(to_types=["dxf", "dwg"])
+        super().__init__(to_types=["rvt", "rfa"])
