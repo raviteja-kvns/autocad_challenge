@@ -3,6 +3,8 @@ import config as cfg
 import ezdxf
 from ezdxf.addons import odafc
 import utils.utils as utils
+import math
+
 
 class AutoCADConverter(BaseConverter):
 
@@ -29,7 +31,19 @@ class AutoCADConverter(BaseConverter):
                 This suffices for the given use case. Definitely need to expand for different shapes like say circle.
                 Also such information needs to be captured in the CSV either implicitly or explicitly
             """
-            msp.add_line(tuple(row.values[2:5]), tuple(row.values[5:8]), dxfattribs={'layer': 'MyLayer'})
+            # Line object 1: Wall one - True measurements
+            p1 = row.values[2:5]
+            p2 = row.values[5:8]
+            aa = msp.add_line(tuple(p1), tuple(p2), dxfattribs={'layer': 'MyLayer'})
+
+            # Parallel Line Object 2: With thickness
+            delta = self._get_detla_for_wall_thickness(p1, p2)
+            msp.add_line(tuple(p1 - delta), tuple(p2 - delta), dxfattribs={'layer': 'MyLayer'})
+
+            # Short segments to close the figure wall
+            msp.add_line(tuple(p1), tuple(p1 - delta), dxfattribs={'layer': 'MyLayer'})
+            msp.add_line(tuple(p2), tuple(p2 - delta), dxfattribs={'layer': 'MyLayer'})
+
 
         # Check if results dir exists
         utils.check_and_create_dir(cfg.general["results_path"])
@@ -39,3 +53,28 @@ class AutoCADConverter(BaseConverter):
             doc.saveas(save_file_as + ".dxf")
         elif selected_to_type == 'dwg':
             odafc.export_dwg(doc, save_file_as + '.dwg', version='R2018')
+
+    def _get_detla_for_wall_thickness(self, p1, p2):
+
+        """
+            Compute Delta for Wall thickness
+            as the offset would be only along x,y jointly or either just x or y
+        :return:
+        """
+        thickness = cfg.model_preferences["default_wall_thickness"]
+        delta = None
+        if p1[0] == p2[0]:
+            # Line along Y axis -> offset x
+            delta = [thickness, 0, 0]
+        elif p1[1] == p2[1]:
+            # Line along X axis -> offset y
+            delta = [0, thickness, 0]
+        else:
+            # Spread the thickness along x and y proportionately
+            slope = (p2[1] - p1[1]) / (p2[0] - p1[0])
+            slope_of_perpendicular = -1/slope
+            theta = math.atan(slope_of_perpendicular)
+
+            delta = [math.cos(theta) * thickness, math.sin(theta) * thickness, 0]
+
+        return delta
